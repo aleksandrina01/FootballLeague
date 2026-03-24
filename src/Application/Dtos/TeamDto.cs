@@ -10,13 +10,7 @@ namespace Application.Dtos
 
         public string? City { get; set; }
 
-        public string? Coach { get; set; }
-
-        public int? FoundedYear { get; set; }
-
-        public TeamStatsDto? Stats { get; set; }
-
-        public List<MatchSummaryDto>? RecentMatches { get; set; }
+        public List<MatchSummaryDto>? MatchesPlayed { get; set; }
 
         public static TeamDto ToDto(Team team)
         {
@@ -25,10 +19,15 @@ namespace Application.Dtos
                 Name = team.Name,
                 Country = team.Country,
                 City = team.City,
-                Coach = team.Coach,
-                FoundedYear = team.FoundedYear,
-                Stats = null,
-                RecentMatches = null
+                MatchesPlayed = team.MatchesPlayed?.Select(m => new MatchSummaryDto
+                {
+                    OpponentName = m.SecondTeam.Name,
+                    GoalsFor = m.FirstTeamScore,
+                    GoalsAgainst = m.SecondTeamScore,
+                    Date = m.PlayedAt,
+                    Result = m.FirstTeamScore > m.SecondTeamScore ? "Win" : 
+                        m.FirstTeamScore < m.SecondTeamScore ? "Loss" : "Draw",
+                }).ToList()
             };
         }
     }
@@ -42,10 +41,6 @@ namespace Application.Dtos
         public int Drawn { get; set; }
 
         public int Lost { get; set; }
-
-        public int GoalsFor { get; set; }
-
-        public int GoalsAgainst { get; set; }
 
         public int Points { get; set; }
     }

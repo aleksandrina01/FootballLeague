@@ -14,8 +14,6 @@ namespace Application.Dtos
 
         public string OpponentName { get; set; }
 
-        public bool IsHome { get; set; }
-
         public int? GoalsFor { get; set; }
 
         public int? GoalsAgainst { get; set; }
