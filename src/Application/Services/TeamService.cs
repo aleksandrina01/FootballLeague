@@ -1,4 +1,5 @@
 ﻿using Application.Dtos;
+using Application.Services.Interfaces;
 using Domain.Entities;
 using Infrastructure.Repositories;
 
@@ -27,13 +28,27 @@ namespace Application.Services
             return TeamDto.ToDto(team);
         }
 
-        public async Task AddTeamAsync(Team team)
+        public async Task AddTeamAsync(TeamRequestDto teamRequest)
         {
+            var team = new Team
+            {
+                Name = teamRequest.Name,
+                Country = teamRequest.Country,
+                City = teamRequest.City,
+                Players = teamRequest.Players ?? 0
+            };
             await _repo.AddAsync(team);
         }
 
-        public async Task UpdateTeamAsync(Team team)
+        public async Task UpdateTeamAsync(TeamRequestDto teamRequest)
         {
+            var team = new Team
+            {
+                Name = teamRequest.Name,
+                Country = teamRequest.Country,
+                City = teamRequest.City,
+                Players = teamRequest.Players ?? 0
+            };
             await _repo.UpdateAsync(team);
         }
 

@@ -1,4 +1,5 @@
 using Application.Services;
+using Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application
@@ -9,6 +10,7 @@ namespace Application
         {
             // Register application services
             services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<IMatchService, MatchService>();
 
             return services;
         }

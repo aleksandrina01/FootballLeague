@@ -15,6 +15,7 @@ namespace Infrastructure
                 opts.UseSqlServer(connectionString));
 
             services.AddScoped<ITeamRepository, TeamRepository>();
+            //services.AddScoped<IMatchRepository, MatchRepository>();
 
             return services;
         }

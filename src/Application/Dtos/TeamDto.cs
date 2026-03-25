@@ -10,6 +10,8 @@ namespace Application.Dtos
 
         public string? City { get; set; }
 
+        public int Players { get; set; }
+
         public int Points { get; set; }
 
         public int Wins { get; set; }

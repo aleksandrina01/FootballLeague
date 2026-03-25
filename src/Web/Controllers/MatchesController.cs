@@ -1,6 +1,5 @@
 using Application.Dtos;
-using Application.Services;
-using Domain.Entities;
+using Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers
@@ -9,9 +8,9 @@ namespace Web.Controllers
     [Route("api/[controller]")]
     public class MatchesController : ControllerBase
     {
-        private readonly MatchService _service;
+        private readonly IMatchService _service;
 
-        public MatchesController(MatchService service)
+        public MatchesController(IMatchService service)
         {
             _service = service;
         }
@@ -24,7 +23,7 @@ namespace Web.Controllers
         //}
 
         [HttpPost("match")]
-        public async Task<ActionResult> Create(Match match)
+        public async Task<ActionResult> Create([FromBody]MatchRequestDto match)
         {
             await _service.AddMatchAsync(match);
             return Ok();
