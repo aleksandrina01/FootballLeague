@@ -6,10 +6,10 @@ namespace Application.Services.Interfaces
 {
     public interface ITeamService
     {
-        Task<IEnumerable<TeamDto>> GetAllTeamsAsync();
-        Task<TeamDto?> GetTeamByNameAsync(string name);
+        Task<IEnumerable<TeamResponseDto>> GetAllTeamsAsync();
+        Task<TeamResponseDto?> GetTeamByNameAsync(string name);
         Task AddTeamAsync(TeamRequestDto teamRequest);
-        Task UpdateTeamAsync(TeamRequestDto teamRequest);
+        Task UpdateTeamAsync(Guid id, TeamRequestDto teamRequest);
         Task DeleteTeamAsync(Guid id);
     }
 }

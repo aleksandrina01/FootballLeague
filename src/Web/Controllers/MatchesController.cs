@@ -8,24 +8,38 @@ namespace Web.Controllers
     [Route("api/[controller]")]
     public class MatchesController : ControllerBase
     {
-        private readonly IMatchService _service;
+        private readonly IMatchService _matchService;
 
-        public MatchesController(IMatchService service)
+        public MatchesController(IMatchService matchService)
         {
-            _service = service;
+            _matchService = matchService;
         }
 
-        //[HttpGet("match/{id:guid}")]
-        //public async Task<ActionResult<MatchDto>> GetMatch(Guid id)
-        //{
-        //    await _service.GetMatchAsync(id);
-        //    return Ok();
-        //}
+        [HttpGet("matches")]
+        public async Task<ActionResult<MatchResponseDto>> GetAllMatches()
+        {
+            var matches = await _matchService.GetAllMatchesAsync();
+            return Ok(matches);
+        }
+
+        [HttpGet("match/{id:guid}")]
+        public async Task<ActionResult<MatchResponseDto>> GetMatchById(Guid id)
+        {
+            var match = await _matchService.GetMatchByIdAsync(id);
+            return Ok(match);
+        }
 
         [HttpPost("match")]
-        public async Task<ActionResult> Create([FromBody]MatchRequestDto match)
+        public async Task<ActionResult> CreateMatch([FromBody]MatchRequestDto match)
         {
-            await _service.AddMatchAsync(match);
+            await _matchService.CreateMatchAsync(match);
+            return Ok();
+        }
+
+        [HttpDelete("match/{id:guid}")]
+        public async Task<ActionResult> DeleteMatch(Guid id)
+        {
+            await _matchService.DeleteMatchAsync(id);
             return Ok();
         }
     }

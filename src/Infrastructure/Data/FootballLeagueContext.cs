@@ -23,17 +23,16 @@ namespace Infrastructure.Data
             {
                 b.HasKey(m => m.Id);
 
-                b.Property(m => m.FirstTeamScore).IsRequired(false);
-                b.Property(m => m.SecondTeamScore).IsRequired(false);
-                b.Property(m => m.PlayedAt).IsRequired(false);
+                b.Property(m => m.FirstTeamScore).IsRequired().HasDefaultValue(0);
+                b.Property(m => m.SecondTeamScore).IsRequired().HasDefaultValue(0);
+                b.Property(m => m.PlayedAt).IsRequired();
 
-                // Configure two FKs to the same principal table without cascade delete
-                b.HasOne<Team>()
+                b.HasOne(m => m.FirstTeam)
                     .WithMany()
                     .HasForeignKey(m => m.FirstTeamId)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                b.HasOne<Team>()
+                b.HasOne(m => m.SecondTeam)
                     .WithMany()
                     .HasForeignKey(m => m.SecondTeamId)
                     .OnDelete(DeleteBehavior.Restrict);

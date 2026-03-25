@@ -2,8 +2,21 @@
 
 namespace Application.Dtos
 {
-    public class TeamDto
+    public class TeamRequestDto
     {
+        public string? Name { get; set; }
+
+        public string? Country { get; set; }
+
+        public string? City { get; set; }
+
+        public int? Players { get; set; }
+    }
+
+    public class TeamResponseDto
+    {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string? Country { get; set; }
@@ -20,15 +33,15 @@ namespace Application.Dtos
 
         public int Losses { get; set; }
 
-        ////public List<MatchSummaryDto>? MatchesPlayed { get; set; }
-
-        public static TeamDto ToDto(Team team)
+        public static TeamResponseDto ToDto(Team team)
         {
-            return new TeamDto
+            return new TeamResponseDto
             {
+                Id = team.Id,
                 Name = team.Name,
                 Country = team.Country,
                 City = team.City,
+                Players = team.Players,
                 Wins = team.Wins,
                 Draws = team.Draws,
                 Losses = team.Losses,

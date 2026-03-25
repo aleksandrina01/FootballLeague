@@ -14,12 +14,14 @@ namespace Domain.Entities
 
         public Guid SecondTeamId { get; set; }
 
-        public int? FirstTeamScore { get; set; }
+        public int FirstTeamScore { get; set; }
 
-        public int? SecondTeamScore { get; set; }
+        public int SecondTeamScore { get; set; }
 
         public DateTime? PlayedAt { get; set; }
 
-        public bool IsPlayed => FirstTeamScore.HasValue && SecondTeamScore.HasValue;
+        // Navigation properties
+        public Team? FirstTeam { get; set; }
+        public Team? SecondTeam { get; set; }
     }
 }

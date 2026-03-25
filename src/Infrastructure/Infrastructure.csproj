@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\" />
+    <Compile Remove="Repositories\NewFolder1\**" />
+    <EmbeddedResource Remove="Repositories\NewFolder1\**" />
+    <None Remove="Repositories\NewFolder1\**" />
   </ItemGroup>
 
   <ItemGroup>

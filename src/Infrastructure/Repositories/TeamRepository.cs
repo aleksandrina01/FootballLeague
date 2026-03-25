@@ -1,7 +1,7 @@
 using Domain.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Domain.Exceptions;
+using Infrastructure.Repositories.Interfaces;
 
 namespace Infrastructure.Repositories
 {
@@ -16,19 +16,19 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Team>> GetAllAsync() => await _context.Teams.AsNoTracking().ToListAsync();
 
-        public async Task<Team> GetByIdAsync(Guid id)
+        public async Task<Team?> GetByIdAsync(Guid id)
         {
             var team = await _context.Teams.AsNoTracking().FirstOrDefaultAsync(team => team.Id == id);
 
-            return team ?? throw new NotFoundException($"Team with id '{id}' not found.");
+            return team;
         }
 
-        public async Task<Team> GetByNameAsync(string name)
+        public async Task<Team?> GetByNameAsync(string name)
         {
-            var team = await _context.Teams.AsNoTracking().FirstOrDefaultAsync(team => 
-                team.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            var team = await _context.Teams.AsNoTracking()
+                .FirstOrDefaultAsync(t => t.Name.ToLower() == name.ToLower());
 
-            return team ?? throw new NotFoundException($"Team with name '{name}' not found.");
+            return team;
         }
 
         public async Task AddAsync(Team team)
@@ -43,17 +43,20 @@ namespace Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var team = await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
 
-            if (team == null)
-            {
-                throw new NotFoundException($"Team with id {id} not found.");
-            }
+            if (team == null) return false;
 
             _context.Teams.Remove(team);
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> HasMatchesAsync(Guid teamId)
+        {
+            return await _context.Matches.AnyAsync(m => m.FirstTeamId == teamId || m.SecondTeamId == teamId);
         }
     }
 }

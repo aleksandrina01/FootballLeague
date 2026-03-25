@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Data;
 using Infrastructure.Repositories;
+using Infrastructure.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,7 @@ namespace Infrastructure
                 opts.UseSqlServer(connectionString));
 
             services.AddScoped<ITeamRepository, TeamRepository>();
-            //services.AddScoped<IMatchRepository, MatchRepository>();
+            services.AddScoped<IMatchRepository, MatchRepository>();
 
             return services;
         }

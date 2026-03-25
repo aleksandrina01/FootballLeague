@@ -4,6 +4,9 @@ namespace Application.Services.Interfaces
 {
 	public interface IMatchService
 	{
-        Task AddMatchAsync(MatchRequestDto matchRequest);
+        Task<IEnumerable<MatchResponseDto>> GetAllMatchesAsync();
+        Task<MatchResponseDto> GetMatchByIdAsync(Guid id);
+        Task CreateMatchAsync(MatchRequestDto matchRequest);
+        Task DeleteMatchAsync(Guid id);
     }
 }

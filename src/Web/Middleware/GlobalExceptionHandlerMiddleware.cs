@@ -1,5 +1,6 @@
 using Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
+using System.ComponentModel.DataAnnotations;
 
 namespace Web.Middleware;
 
@@ -14,7 +15,7 @@ public class GlobalExceptionHandlerMiddleware : IExceptionHandler
         {
             NotFoundException => (StatusCodes.Status404NotFound, exception.Message),
             ConflictException => (StatusCodes.Status409Conflict, exception.Message),
-            BadRequestException => (StatusCodes.Status400BadRequest, exception.Message),
+            ValidationException => (StatusCodes.Status400BadRequest, exception.Message),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
         };
 
