@@ -12,11 +12,7 @@ namespace Domain.Entities
 
         public Guid FirstTeamId { get; set; }
 
-        //public Team? FirstTeam { get; set; }
-
         public Guid SecondTeamId { get; set; }
-
-        //public Team? SecondTeam { get; set; }
 
         public int? FirstTeamScore { get; set; }
 
