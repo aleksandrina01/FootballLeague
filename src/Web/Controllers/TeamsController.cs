@@ -29,7 +29,7 @@ namespace Web.Controllers
             return Ok(team);
         }
 
-        [HttpGet("team/id/{id:guid}")]
+        [HttpGet("team/{id:guid}")]
         public async Task<ActionResult<TeamResponseDto>> GetTeamById(Guid id)
         {
             var team = await _teamService.GetTeamByIdAsync(id);
