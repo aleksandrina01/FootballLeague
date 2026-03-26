@@ -30,8 +30,19 @@ namespace Application.Services
             return TeamResponseDto.ToDto(team);
         }
 
-        public async Task AddTeamAsync(TeamRequestDto teamRequest)
+        public async Task<TeamResponseDto?> GetTeamByIdAsync(Guid id)
         {
+            var team = await _teamRepository.GetByIdAsync(id);
+            if (team == null) throw new NotFoundException($"Team with id '{id}' not found.");
+
+            return TeamResponseDto.ToDto(team);
+        }
+
+        public async Task<Guid> AddTeamAsync(TeamRequestDto teamRequest)
+        {
+            var existing = await _teamRepository.GetByNameAsync(teamRequest.Name);
+            if (existing != null) throw new ConflictException($"Team with name '{teamRequest.Name}' already exists.");
+
             var team = new Team
             {
                 Name = teamRequest.Name,
@@ -40,6 +51,7 @@ namespace Application.Services
                 Players = teamRequest.Players ?? 0
             };
             await _teamRepository.AddAsync(team);
+            return team.Id;
         }
 
         public async Task UpdateTeamAsync(Guid id, TeamRequestDto teamRequest)

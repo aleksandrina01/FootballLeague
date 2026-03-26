@@ -5,4 +5,7 @@
     <Project Path="src/Infrastructure/Infrastructure.csproj" />
     <Project Path="src/Web/Web.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/FootballLeague.Web.UnitTests/FootballLeague.Web.UnitTests.csproj" />
+  </Folder>
 </Solution>

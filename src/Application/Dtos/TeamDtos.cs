@@ -1,9 +1,11 @@
 ﻿using Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Application.Dtos
 {
     public class TeamRequestDto
     {
+        [Required]
         public string? Name { get; set; }
 
         public string? Country { get; set; }

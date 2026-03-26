@@ -29,12 +29,20 @@ namespace Web.Controllers
             return Ok(team);
         }
 
+        [HttpGet("team/id/{id:guid}")]
+        public async Task<ActionResult<TeamResponseDto>> GetTeamById(Guid id)
+        {
+            var team = await _teamService.GetTeamByIdAsync(id);
+
+            return Ok(team);
+        }
+
         [HttpPost("team")]
         public async Task<ActionResult> CreateTeam([FromBody] TeamRequestDto team)
         {
-            await _teamService.AddTeamAsync(team);
+            var id = await _teamService.AddTeamAsync(team);
 
-            return Ok();
+            return CreatedAtAction(nameof(GetTeamById), new { id }, id);
         }
 
         [HttpPut("team/{teamId:guid}")]

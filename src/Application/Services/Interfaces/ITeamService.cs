@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Application.Dtos;
-using Domain.Entities;
 
 namespace Application.Services.Interfaces
 {
@@ -8,7 +7,8 @@ namespace Application.Services.Interfaces
     {
         Task<IEnumerable<TeamResponseDto>> GetAllTeamsAsync();
         Task<TeamResponseDto?> GetTeamByNameAsync(string name);
-        Task AddTeamAsync(TeamRequestDto teamRequest);
+        Task<TeamResponseDto?> GetTeamByIdAsync(Guid id);
+        Task<Guid> AddTeamAsync(TeamRequestDto teamRequest);
         Task UpdateTeamAsync(Guid id, TeamRequestDto teamRequest);
         Task DeleteTeamAsync(Guid id);
     }
