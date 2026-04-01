@@ -42,7 +42,7 @@ Server=(localdb)\mssqllocaldb;Database=FootballLeagueDb;Trusted_Connection=True;
 **Instructions:**
 
 1. Update the connection string above in your `appsettings.json` (or as required by your project).
-2. If using Entity Framework, run migrations to create the database schema:
+2. Run migrations to create the database schema:
 
     ```bash
     dotnet ef database update
